@@ -16,6 +16,14 @@ Everything I can implement, but it was not required goes under TODO: group.
 I decided to use task to simplify it a bit for me, so main reason is "SIMPLE backend app".
 So - security and\or paranoia is set to minimal values.
 
+
+
+Important: "User image (on creation uploaded via API as a file)" in a task was omitted purely to simplify user
+registration for actual users.
+It can be added in 15 minutes if requested.
+
+
+
 Project name and localhost - simpla.pi 
 
 
@@ -44,6 +52,7 @@ User image => avatar
 uploads to public/avatars
 naming - simplest and most stupid approach, user_id.jpg as only unique value without adding tables in database.
 
+
 TODO: in real project where I must care about security, obscurity and inodes in folder(hosting dependent) I would create
 a DB table, to save images with long unique names (SHA5, murmur maybe), and to serve them with slug of username 
 as image name. Depends on project and task actually.  
@@ -61,8 +70,8 @@ Auth routes:
     POST api/register -> standard (name - email - password - password_confirmation)
     POST api/login -> standard (email - password)
 
-    POST api/add-tweet -> (text)
-    GET  api/edit-user -> return (name - image - birthdate) for edit form
+    POST api/add-tweet -> (text) adding a tweet by authenticated user
+    GET  api/edit-user -> return (name - image - birthdate) for user edit form
     POST api/update-user -> (name - image - birthdate) //because PUT will not upload file, and it is wise to have single
         page for user editing themselves.
 
