@@ -62,6 +62,7 @@ Auth routes:
     POST api/login -> standard (email - password)
 
     POST api/add-tweet -> (text)
+    GET  api/edit-user -> return (name - image - birthdate) for edit form
     POST api/update-user -> (name - image - birthdate) //because PUT will not upload file, and it is wise to have single
         page for user editing themselves.
 
