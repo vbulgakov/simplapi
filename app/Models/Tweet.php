@@ -11,7 +11,7 @@ class Tweet extends Model
 
     protected $fillable = [
         'creator',
-        'test',
+        'text',
     ];
 
 }
