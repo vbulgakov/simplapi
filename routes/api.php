@@ -22,8 +22,9 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 
 Route::group(['middleware'=>'auth:api'], function(){
-Route::get('/edit-user/{id}', [UserController::class, 'editUser']);
-
+Route::get('/edit-user/', [UserController::class, 'editUser'])->name('edit-user');
+Route::post('/update-user/', [UserController::class, 'updateUser']);
+Route::post('/add-tweet/', [TweetController::class, 'addTweet']);
 });
 
 Route::get('/randomtweet',[TweetController::class, 'returnRandomTweet']);
