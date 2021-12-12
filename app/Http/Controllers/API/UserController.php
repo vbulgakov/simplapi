@@ -7,10 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
+
 class UserController extends Controller
 {
     public function editUser(){
-        return User::where('id', auth('api')->user()->id )->get(['id','name', 'birthdate']);
+
+        $user_array=User::where('id', auth('api')->user()->id )->get(['id','name', 'birthdate'])->toArray();
+
+        $user_array[0]['avatar_url']=asset('storage').'/'.config('assets.user_image_path').'/'.$user_array[0]['id'].'.jpg';
+        unset ($user_array[0]['id']);
+
+        return $user_array;
     }
 
     public function updateUser(Request $request){
@@ -26,7 +33,7 @@ class UserController extends Controller
         }
 
         $validate_date = Validator::make($request->all(), ['date' => 'required|date']);
-        if ($validate_name->fails()){
+        if ($validate_date->fails()){
             return back()->with('Error', 'Incorrect date.');
         }
         else{
@@ -34,13 +41,11 @@ class UserController extends Controller
         }
 
         $validator = Validator::make($request->all(), ['image' => 'required|image:jpeg|max:1024']);
-
         if ($validator->fails()){
             return response('error', 500);
         }
-        $uploadFolder = 'avatars';
         $image = $request->file('image');
-        $image->storeAs($uploadFolder,$user_id.'.jpg','public');
+        $image->storeAs(config('assets.user_image_path'),$user_id.'.jpg','public');
 
         return back()->with('success', 'Your data updated.');
     }
